@@ -1,0 +1,44 @@
+services:
+  otel:
+    image: otel/opentelemetry-collector-contrib:0.135.0
+    volumes:
+      - "./config.yaml:/etc/otelcol-contrib/config.yaml"
+    environment:
+      - "PROJECT_ID=fake-project"
+      - "PUBSUB_EMULATOR_HOST=pubsub:8085"
+      - "PUBSUB_SUBSCRIPTION=my-subscription"
+      - "SIGNOZ_INGESTION_KEY=${SIGNOZ_INGESTION_KEY:-fake}"
+    depends_on:
+      client:
+        condition: service_completed_successfully
+
+  pubsub:
+    build:
+      context: .
+      dockerfile: Dockerfile.emulator
+    command: ["gcloud", "beta", "emulators", "pubsub", "start", "--project=fake-project", "--host-port=0.0.0.0:8085"]
+    ports:
+      - "8085:8085"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085"]
+      start_period: 10s
+      start_interval: 1s
+      retries: 4
+      # after starting, ping less to not clutter logs
+      interval: 10s
+      timeout: 5s
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    volumes:
+      - "./client/big_log.json:/app/big_log.json"
+    environment:
+      - "PUBSUB_EMULATOR_HOST=pubsub:8085"
+      - "PUBSUB_PROJECT_ID=fake-project"
+      - "PUBSUB_TOPIC=my-topic"
+      - "PUBSUB_SUBSCRIPTION=my-subscription"
+    depends_on:
+      pubsub:
+        condition: service_healthy

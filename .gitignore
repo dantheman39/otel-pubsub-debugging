@@ -1,0 +1,19 @@
+.envrc
+.env
+
+.idea
+.code
+
+# Python-generated files
+client/__pycache__/
+client/*.py[oc]
+client/build/
+client/dist/
+client/wheels/
+client/*.egg-info
+client/.envrc
+# Virtual environments
+client/.venv
+
+*.swp
+*.swo

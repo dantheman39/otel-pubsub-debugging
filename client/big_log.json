@@ -1,0 +1,190 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {
+      "message": "Execution fake-job-79gc8 has completed successfully."
+    },
+    "serviceName": "run.googleapis.com",
+    "methodName": "/Jobs.RunJob",
+    "resourceName": "namespaces/fake-project/executions/fake-job-79gc8",
+    "response": {
+      "metadata": {
+        "name": "fake-job-79gc8",
+        "namespace": "845684099668",
+        "selfLink": "/apis/run.googleapis.com/v1/namespaces/845684099668/executions/fake-job-79gc8",
+        "uid": "978d6dcb-22d6-4de4-a2e0-e0a0471a3597",
+        "resourceVersion": "AAY/C2svApg",
+        "generation": 1,
+        "creationTimestamp": "2025-09-18T04:00:05.904234Z",
+        "labels": {
+          "run.googleapis.com/job": "fake-job",
+          "run.googleapis.com/jobResourceVersion": "1758142802421284",
+          "run.googleapis.com/jobGeneration": "7",
+          "run.googleapis.com/jobUid": "26c88b06-a71e-4dbe-bbd6-57935471970a",
+          "cloud.googleapis.com/location": "us-central1"
+        },
+        "annotations": {
+          "run.googleapis.com/network-interfaces": "[{\"network\":\"projects/fake-project/global/networks/default\",\"subnetwork\":\"projects/fake-project/regions/us-central1/subnetworks/default\"}]",
+          "run.googleapis.com/secrets": "secret-alias-1:projects/fake-project/secrets/screader-role-password,secret-alias-2:projects/analytics-466014/secrets/snowflake-export-svc-private-key",
+          "run.googleapis.com/lastModifier": "fake-job@fake-project.iam.gserviceaccount.com",
+          "run.googleapis.com/creator": "fake-job@fake-project.iam.gserviceaccount.com",
+          "run.googleapis.com/vpc-access-egress": "all-traffic",
+          "run.googleapis.com/execution-environment": "gen2",
+          "run.googleapis.com/operation-id": "500e79ca-1127-47bc-bb98-a768a218ef18"
+        },
+        "ownerReferences": [
+          {
+            "kind": "Job",
+            "name": "fake-job",
+            "uid": "26c88b06-a71e-4dbe-bbd6-57935471970a",
+            "apiVersion": "serving.knative.dev/v1",
+            "controller": true,
+            "blockOwnerDeletion": true
+          }
+        ]
+      },
+      "apiVersion": "run.googleapis.com/v1",
+      "kind": "Execution",
+      "spec": {
+        "parallelism": 1,
+        "taskCount": 1,
+        "template": {
+          "spec": {
+            "containers": [
+              {
+                "image": "us-central1-docker.pkg.dev/fake-project/city3-docker/fake-job@sha256:362ad9052b76bfc654afccfecdee088fc0af6b975b9f00869d09377482d40664",
+                "env": [
+                  {
+                    "name": "VAR_1",
+                    "value": "VAR_1"
+                  },
+                  {
+                    "name": "VAR_2",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "latest",
+                        "name": "secret-alias-1"
+                      }
+                    }
+                  },
+                  {
+                    "name": "VAR_3",
+                    "value": "VAR_3"
+                  },
+                  {
+                    "name": "VAR_4",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "latest",
+                        "name": "VAR_4"
+                      }
+                    }
+                  },
+                  {
+                    "name": "VAR_5",
+                    "value": "VAR_5"
+                  },
+                  {
+                    "name": "VAR_6",
+                    "value": "VAR_6"
+                  },
+                  {
+                    "name": "VAR_7",
+                    "value": "VAR_7"
+                  },
+                  {
+                    "name": "VAR_8",
+                    "value": "VAR_8"
+                  },
+                  {
+                    "name": "VAR_9",
+                    "value": "VAR_9"
+                  },
+                  {
+                    "name": "VAR_10",
+                    "value": "VAR_10"
+                  },
+                  {
+                    "name": "VAR_11",
+                    "value": "VAR_11"
+                  },
+                  {
+                    "name": "VAR_12",
+                    "value": "VAR_12"
+                  },
+                  {
+                    "name": "VAR_13",
+                    "value": "VAR_13"
+                  },
+                  {
+                    "name": "VAR_14",
+                    "value": "VAR_14"
+                  },
+                  {
+                    "name": "VAR_15",
+                    "value": "VAR_15"
+                  }
+                ],
+                "resources": {
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "512Mi"
+                  }
+                }
+              }
+            ],
+            "maxRetries": 0,
+            "timeoutSeconds": "600",
+            "serviceAccountName": "fake-job@fake-project.iam.gserviceaccount.com"
+          }
+        }
+      },
+      "status": {
+        "observedGeneration": 1,
+        "conditions": [
+          {
+            "type": "Completed",
+            "status": "True",
+            "lastTransitionTime": "2025-09-18T04:02:14.962963Z"
+          },
+          {
+            "type": "ResourcesAvailable",
+            "status": "True",
+            "lastTransitionTime": "2025-09-18T04:00:07.149458Z"
+          },
+          {
+            "type": "Started",
+            "status": "True",
+            "lastTransitionTime": "2025-09-18T04:00:20.607655Z"
+          },
+          {
+            "type": "ContainerReady",
+            "status": "True",
+            "lastTransitionTime": "2025-09-18T04:00:06.836076Z"
+          }
+        ],
+        "startTime": "2025-09-18T04:00:19.308388Z",
+        "completionTime": "2025-09-18T04:02:14.962963Z",
+        "succeededCount": 1,
+        "logUri": "https://console.cloud.google.com/logs/viewer?project=fake-project&advancedFilter=resource.type%3D%22cloud_run_job%22%0Aresource.labels.job_name%3D%22fake-job%22%0Aresource.labels.location%3D%22us-central1%22%0Alabels.%22run.googleapis.com/execution_name%22%3D%22fake-job-79gc8%22"
+      },
+      "@type": "type.googleapis.com/google.cloud.run.v1.Execution"
+    }
+  },
+  "insertId": "-ey6m8ed5k5a",
+  "resource": {
+    "type": "cloud_run_job",
+    "labels": {
+      "job_name": "fake-job",
+      "project_id": "fake-project",
+      "location": "us-central1"
+    }
+  },
+  "timestamp": "2025-09-18T04:02:15.722690Z",
+  "severity": "INFO",
+  "labels": {
+    "run.googleapis.com/execution_name": "fake-job-79gc8"
+  },
+  "logName": "projects/fake-project/logs/cloudaudit.googleapis.com%2Fsystem_event",
+  "receiveTimestamp": "2025-09-18T04:02:16.120402316Z"
+}

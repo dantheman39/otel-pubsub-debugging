@@ -1,0 +1,51 @@
+extensions:
+  text_encoding:
+    encoding: utf-8
+
+receivers:
+  googlecloudpubsub:
+    endpoint: "pubsub:8085"
+    insecure: true
+    project: "${env:PROJECT_ID}"
+    subscription: "projects/${env:PROJECT_ID}/subscriptions/${env:PUBSUB_SUBSCRIPTION}"
+    encoding: text_encoding
+
+processors:
+  batch: {}
+  resource/env:
+    attributes:
+      - key: deployment.environment
+        value: "local"
+        action: upsert
+
+exporters:
+  debug:
+    use_internal_logger: false
+    verbosity: detailed
+  # # OPTIONAL: uncomment for SigNoz.
+  # # Run `export SIGNOZ_INGESTION_KEY=<your_key>`
+  # # before running / restarting.
+  # # Also comment out the otlp exporter line below
+  # otlp:
+  #   endpoint: "ingest.us.signoz.cloud:443"
+  #   tls:
+  #     insecure: false
+  #   headers:
+  #     "signoz-ingestion-key": "${env:SIGNOZ_INGESTION_KEY}"
+
+service:
+  # # https://opentelemetry.io/docs/collector/internal-telemetry/#configure-internal-logs
+  # telemetry:
+  #   logs:
+  #     level: DEBUG
+  #     encoding: console
+  #     output_paths: [stderr]
+  extensions: [text_encoding]
+  pipelines:
+    logs:
+      receivers: [googlecloudpubsub]
+      processors: [batch, resource/env]
+      exporters:
+        - debug
+        # # OPTIONAL: uncomment for SigNoz
+        # - otlp
