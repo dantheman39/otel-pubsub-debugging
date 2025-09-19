@@ -23,8 +23,8 @@ docker compose up --build -d
 # View logs. Run `dk logs -f otel` for only otel logs.
 docker compose logs -f
 
-# Once that's all up, you can publish a large JSON log to
-# the topic by running this:
+# Once that's all up (see below for how to tell),
+# you can publish a large JSON log to the topic by running this:
 docker compose run --rm client publish
 ```
 
@@ -50,7 +50,8 @@ before publishing the message there should be a log saying
 `Everything is ready. Begin running and processing data.`
 
 Lastly, after you run `docker compose run --rm client publish`, 
-you should two big JSON logs printed to the `otel` logs (but I wish it were one big message).
+you should see two big JSON logs printed to the `otel` logs
+(but I wish it were one big message).
 
 The problem is that this is one single large JSON log, but it's apparently being split into
 multiple messages when it gets over 4MB. This behavior wasn't happening with
