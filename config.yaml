@@ -1,6 +1,8 @@
 extensions:
   text_encoding:
     encoding: utf-8
+  json_log_encoding:
+    array_mode: false
 
 receivers:
   googlecloudpubsub:
@@ -8,7 +10,7 @@ receivers:
     insecure: true
     project: "${env:PROJECT_ID}"
     subscription: "projects/${env:PROJECT_ID}/subscriptions/${env:PUBSUB_SUBSCRIPTION}"
-    encoding: text_encoding
+    encoding: json_log_encoding
 
 processors:
   batch: {}
@@ -40,7 +42,7 @@ service:
   #     level: DEBUG
   #     encoding: console
   #     output_paths: [stderr]
-  extensions: [text_encoding]
+  extensions: [json_log_encoding]
   pipelines:
     logs:
       receivers: [googlecloudpubsub]
